@@ -1,5 +1,6 @@
 /**
  * Estructura de datos cola
+ * @author Joseph A. Colindres
  * @version 1.0
  */
 public class Cola extends Pila {
