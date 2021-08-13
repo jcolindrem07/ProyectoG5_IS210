@@ -1,6 +1,6 @@
-101,Bulevar Suyapa,UNAH,10000
-102,Bulevar Fuerzas Armadas,Instituto Central Vicente Caceres,1200
+101,Bulevar Suyapa,UNAH    ,10000
+102,Bulevar Fuerzas Armadas,Inst. Central,1200
 103,Colonia Villa Olimpica,Villa Olimpica,7000
 104,Bulevar Juan Pablo II,Centro Civico,5000
-105,Colonia 21 de octubre,Instituto 21 de octubre,700
+105,Colonia 21 de octubre,21 de octubre,700
 106,Bulevar Suyapa,Alonso Suazo,1200
