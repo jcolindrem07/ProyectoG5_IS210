@@ -37,9 +37,6 @@ public class ListaEnlazada {
             this.primerNodo = nvoNodo;
         }
     }
-    public Nodo getNodo(){
-        return this.primerNodo;
-    }
 
     /**
      * Inserta un nodo al final de la lista
@@ -122,5 +119,29 @@ public class ListaEnlazada {
      */
     public boolean estaVacia() {
         return (null == this.primerNodo);
+    }
+
+    public Nodo getPrimerNodo() {
+        return primerNodo;
+    }
+
+    public void setPrimerNodo(Nodo primerNodo) {
+        this.primerNodo = primerNodo;
+    }
+
+    public Nodo getUltimoNodo() {
+        return ultimoNodo;
+    }
+
+    public void setUltimoNodo(Nodo ultimoNodo) {
+        this.ultimoNodo = ultimoNodo;
+    }
+
+    public String getNombreLista() {
+        return nombreLista;
+    }
+
+    public void setNombreLista(String nombreLista) {
+        this.nombreLista = nombreLista;
     }
 }
