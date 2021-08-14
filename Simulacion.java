@@ -24,7 +24,7 @@ public class Simulacion {
         Pila[] vacunas;
         Cola pacientes;
 
-        Nodo centroTmp = centros.getNodo();
+        Nodo centroTmp = centros.getPrimerNodo();
         //procesamiento del centro
         do {
             //creacion de pacientes y vacunas
