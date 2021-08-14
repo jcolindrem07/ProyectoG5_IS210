@@ -118,9 +118,8 @@ public class Simulacion {
             } while (!pacientes.estaVacia());
 
             //cuando se atendio a todos los pacientes del centro se imprime el reporte de dicho centro
-            System.out.println(
-                    "Centro de vacunación\tVacuna\t\tAplicadas 1 dosis\tAplicadas 2 dosis\tTotal pacientes atendidos\tTotal pacientes no atendidos");
-            imprimirReporte();
+
+            imprimirReporte(tmpcentro.getNombre(),pfizer,moderna,sputnik,astrazeneca,johnson);
 
             centroTmp = centroTmp.getSiguienteNodo();
         } while (centroTmp.getSiguienteNodo() != null);
@@ -229,9 +228,62 @@ public class Simulacion {
     }
 
     /**
-     * imprime el reporte de vacunacion. Autor: 
+     * imprime el reporte de vacunacion. Autor: jorge Omar Trochez Moncada
      */
-    public static void imprimirReporte() {
+    public static void imprimirReporte(String centro, int[] pfizer,int[] moderna,int[] sputnik,int[] astrazeneca,int[] johnson) {
+
+        System.out.println("  Centro de vacunación\tVacuna\t\tAplicadas 1 dosis\tAplicadas 2 dosis\tTotal pacientes atendidos\tTotal pacientes no atendidos");
+        System.out.print("  "+centro+"\t");
+        System.out.print("Pfizer\t");
+        System.out.print(pfizer[0]);
+        System.out.print("\t");
+        System.out.print(pfizer[1]);
+        System.out.print("\t");
+        System.out.print(pfizer[0]+pfizer[1]);
+        System.out.print("\t");
+        System.out.println(pfizer[2]);
+
+        System.out.print("  "+centro+"\t");
+        System.out.print("Moderna\t");
+        System.out.print(moderna[0]);
+        System.out.print("\t");
+        System.out.print(moderna[1]);
+        System.out.print("\t");
+        System.out.print(moderna[0]+moderna[1]);
+        System.out.print("\t");
+        System.out.println(moderna[2]);
+
+        System.out.print("  "+centro+"\t");
+        System.out.print("Sputnik-V\t");
+        System.out.print(sputnik[0]);
+        System.out.print("\t");
+        System.out.print(sputnik[1]);
+        System.out.print("\t");
+        System.out.print(sputnik[0]+sputnik[1]);
+        System.out.print("\t");
+        System.out.println(sputnik[2]);
+        
+        System.out.print("  "+centro+"\t");
+        System.out.print("Astrazeneca\t");
+        System.out.print(astrazeneca[0]);
+        System.out.print("\t");
+        System.out.print(astrazeneca[1]);
+        System.out.print("\t");
+        System.out.print(astrazeneca[0]+astrazeneca[1]);
+        System.out.print("\t");
+        System.out.println(astrazeneca[2]);
+
+        System.out.print("  "+centro+"\t");
+        System.out.print("Johnson\t");
+        System.out.print(johnson[0]);
+        System.out.print("\t");
+        System.out.print(johnson[1]);
+        System.out.print("\t");
+        System.out.print(johnson[0]+johnson[1]);
+        System.out.print("\t");
+        System.out.println(johnson[2]);
+
+
 
     }
 
