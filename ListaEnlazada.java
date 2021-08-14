@@ -37,6 +37,9 @@ public class ListaEnlazada {
             this.primerNodo = nvoNodo;
         }
     }
+    public Nodo getNodo(){
+        return this.primerNodo;
+    }
 
     /**
      * Inserta un nodo al final de la lista

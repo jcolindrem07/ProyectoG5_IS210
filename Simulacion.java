@@ -24,7 +24,7 @@ public class Simulacion {
         Pila[] vacunas;
         Cola pacientes;
 
-        Nodo centroTmp = centros.getPrimerNodo();
+        Nodo centroTmp = centros.getNodo();
         //procesamiento del centro
         do {
             //creacion de pacientes y vacunas
@@ -235,53 +235,53 @@ public class Simulacion {
         System.out.println("  Centro de vacunación\tVacuna\t\tAplicadas 1 dosis\tAplicadas 2 dosis\tTotal pacientes atendidos\tTotal pacientes no atendidos");
         System.out.print("  "+centro+"\t");
         System.out.print("Pfizer\t");
-        System.out.print(pfizer[0]);
-        System.out.print("\t");
         System.out.print(pfizer[1]);
         System.out.print("\t");
-        System.out.print(pfizer[0]+pfizer[1]);
+        System.out.print(pfizer[2]);
         System.out.print("\t");
-        System.out.println(pfizer[2]);
+        System.out.print(pfizer[1]+pfizer[2]);
+        System.out.print("\t");
+        System.out.println(pfizer[0]);
 
         System.out.print("  "+centro+"\t");
         System.out.print("Moderna\t");
-        System.out.print(moderna[0]);
-        System.out.print("\t");
         System.out.print(moderna[1]);
         System.out.print("\t");
-        System.out.print(moderna[0]+moderna[1]);
+        System.out.print(moderna[2]);
         System.out.print("\t");
-        System.out.println(moderna[2]);
+        System.out.print(moderna[1]+moderna[2]);
+        System.out.print("\t");
+        System.out.println(moderna[0]);
 
         System.out.print("  "+centro+"\t");
         System.out.print("Sputnik-V\t");
-        System.out.print(sputnik[0]);
-        System.out.print("\t");
         System.out.print(sputnik[1]);
         System.out.print("\t");
-        System.out.print(sputnik[0]+sputnik[1]);
+        System.out.print(sputnik[2]);
         System.out.print("\t");
-        System.out.println(sputnik[2]);
+        System.out.print(sputnik[1]+sputnik[2]);
+        System.out.print("\t");
+        System.out.println(sputnik[0]);
         
         System.out.print("  "+centro+"\t");
         System.out.print("Astrazeneca\t");
-        System.out.print(astrazeneca[0]);
-        System.out.print("\t");
         System.out.print(astrazeneca[1]);
         System.out.print("\t");
-        System.out.print(astrazeneca[0]+astrazeneca[1]);
+        System.out.print(astrazeneca[2]);
         System.out.print("\t");
-        System.out.println(astrazeneca[2]);
+        System.out.print(astrazeneca[1]+astrazeneca[2]);
+        System.out.print("\t");
+        System.out.println(astrazeneca[0]);
 
         System.out.print("  "+centro+"\t");
         System.out.print("Johnson\t");
-        System.out.print(johnson[0]);
-        System.out.print("\t");
         System.out.print(johnson[1]);
         System.out.print("\t");
-        System.out.print(johnson[0]+johnson[1]);
+        System.out.print(johnson[2]);
         System.out.print("\t");
-        System.out.println(johnson[2]);
+        System.out.print(johnson[1]+johnson[2]);
+        System.out.print("\t");
+        System.out.println(johnson[0]);
 
 
 
