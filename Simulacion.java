@@ -8,6 +8,7 @@ import java.util.Random;
  * Simulacion del proceso de vacunacion
  */
 public class Simulacion {
+    private static ListaEnlazada centros= new ListaEnlazada("Centros");
 
     public static void main(String[] args) {
         
@@ -15,14 +16,13 @@ public class Simulacion {
 
     /**
      * Metodo que lee el archivo de texto donde se encuentran los datos de los centros de vacunacion
-     * y crea objetos tipo Centro con esos datos y genera la lista con esos onjetos. Autor: Jeffer Martinez
+     * y crea objetos tipo Centro con esos datos y genera la lista con esos objetos. Autor: Jeffer Martinez
      */
     public static void crearCentros() {
         
         FileReader leer;
         BufferedReader br;
         String linea;
-        ListaEnlazada lista= new ListaEnlazada("Centros");
       
 
         try {
@@ -42,12 +42,7 @@ public class Simulacion {
                                     totalcentros[2],
                                     Integer.parseInt(totalcentros[3]));
 
-                   for(int i=0; i<centros.length; i++){
-                      if(centros[i]==null){
-                      centros[i]=nvocentro;
-                      lista.insertarAlFinal(centros[i].getNombre());
-                      break;
-                   }
+                   centros.insertarAlFinal(nvocentro);
                 }
 
                 linea=br.readLine();
@@ -59,10 +54,6 @@ public class Simulacion {
         catch(IOException e){
 
         }
-      lista.imprimir();
- 
-        
-        
     }
 
     /**
