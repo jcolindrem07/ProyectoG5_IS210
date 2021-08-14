@@ -15,9 +15,53 @@ public class Simulacion {
 
     /**
      * Metodo que lee el archivo de texto donde se encuentran los datos de los centros de vacunacion
-     * y crea objetos tipo Centro con esos datos. Autor:
+     * y crea objetos tipo Centro con esos datos y genera la lista con esos onjetos. Autor: Jeffer Martinez
      */
     public static void crearCentros() {
+        
+        FileReader leer;
+        BufferedReader br;
+        String linea;
+        ListaEnlazada lista= new ListaEnlazada("Centros");
+      
+
+        try {
+            leer= new FileReader("D:\\Clases\\Programacion 2\\Ejercicios clases\\ProyectoG5_IS210-main\\centros.txt");
+            br= new BufferedReader(leer);  
+
+            linea=br.readLine();
+
+            while (null !=linea) {
+                /**
+                 * proceso de creacion de objetos de tipo Centro y generar la lista
+                 */
+                String totalcentros[]=linea.split(",");
+                
+                Centro nvocentro= new Centro(Integer.parseInt(totalcentros[0]),
+                                    totalcentros[1],
+                                    totalcentros[2],
+                                    Integer.parseInt(totalcentros[3]));
+
+                   for(int i=0; i<centros.length; i++){
+                      if(centros[i]==null){
+                      centros[i]=nvocentro;
+                      lista.insertarAlFinal(centros[i].getNombre());
+                      break;
+                   }
+                }
+
+                linea=br.readLine();
+            }
+
+        } catch (FileNotFoundException e) {
+         
+        }
+        catch(IOException e){
+
+        }
+      lista.imprimir();
+ 
+        
         
     }
 
