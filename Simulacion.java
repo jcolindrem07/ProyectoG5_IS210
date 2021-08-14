@@ -8,10 +8,122 @@ import java.util.Random;
  * Simulacion del proceso de vacunacion
  */
 public class Simulacion {
-    private static ListaEnlazada centros= new ListaEnlazada("Centros");
+    /**
+     * Lista de los centros de vacunacion creados
+     */
+    private static ListaEnlazada centros = new ListaEnlazada("Centros");
 
+    /**
+     * autor: Joseph A. Colindres
+     */
     public static void main(String[] args) {
-        
+        Random rand = new Random();
+        crearCentros();
+
+        //arreglo tipo pila que contendra las 5 pilas de vacunas para el centro actual
+        Pila[] vacunas;
+        Cola pacientes;
+
+        Nodo centroTmp = centros.getPrimerNodo();
+        //procesamiento del centro
+        do {
+            //creacion de pacientes y vacunas
+            vacunas = crearVacunas();
+
+            Centro tmpcentro = (Centro) centroTmp.getDato();
+            pacientes = crearPacientes(tmpcentro.getCapacidad());
+
+            //variables para manejar los datos de los vacunados e imprimir el reporte
+            //[0]Total pacientes no atendidos [1]Aplicadas 1 dosis	[2]Aplicadas 2 dosis 
+            int[] pfizer = { 0, 0, 0 };
+            int[] moderna = { 0, 0, 0 };
+            int[] sputnik = { 0, 0, 0 };
+            int[] astrazeneca = { 0, 0, 0 };
+            int[] johnson = { 0, 0, 0 };
+
+            //procesamiento de los pacientes
+            Paciente pacientetmp;
+            int vacunaARecibir;
+            boolean vacunado;
+            int posicionArreglo;
+            do {
+                pacientetmp = (Paciente) pacientes.getPrimerNodo().getDato();
+                vacunado = false;
+
+                if (pacientetmp.getDosisARecibir() == 1) {
+                    //si viene por la primera dosis se le aplica cualquier vacuna disponible
+                    do {
+                        vacunaARecibir = rand.nextInt(5);
+
+                        //verifica si hay vacunas, si no hay el paciente no es atendido
+                        if (!hayVacunas(vacunas)) {
+                            break;
+                        } else if (!vacunas[vacunaARecibir].estaVacia()) {
+                            vacunas[vacunaARecibir].eliminar();
+                            vacunado = true;
+                        }
+                    } while (!vacunado);
+
+                } else {
+                    //si viene por la segunda dosis solo se le puede aplicar la misma vacuna. Si no hay, no es atendido
+                    try {
+                        vacunaARecibir = pacientetmp.getVacunaAplicada().ordinal();
+                    } catch (NullPointerException e) {
+                        vacunaARecibir = 0;
+                    }
+                    if (vacunas[vacunaARecibir].estaVacia()) {
+                        //si no hay vacuna de esa marca el paciente no es atendido
+                        vacunado = false;
+                    } else {
+                        //si hay vacuna se atiende al paciente y se resta una vacuna
+                        vacunas[vacunaARecibir].eliminar();
+                        vacunado = true;
+                    }
+                }
+
+                if (vacunado) {
+                    //si el paciente fue vacunado se suma 1 a la estadistica de la respectiva marca y dosis
+                    posicionArreglo = pacientetmp.getDosisARecibir();
+                } else {
+                    //si el paciente NO fue vacunado se suma 1 a la estadistica de la respectiva marca en no atendidos
+                    posicionArreglo = 0;
+                }
+
+                //se suman los datos de primera dosis, segunda y no atendidos de acuerdo a la marca aplicada
+                switch (vacunaARecibir) {
+                    case 0:
+                        pfizer[posicionArreglo]++;
+                        break;
+
+                    case 1:
+                        moderna[posicionArreglo]++;
+                        break;
+
+                    case 2:
+                        sputnik[posicionArreglo]++;
+                        break;
+
+                    case 3:
+                        astrazeneca[posicionArreglo]++;
+                        break;
+
+                    case 4:
+                        johnson[posicionArreglo]++;
+
+                    default:
+                        break;
+                }
+                //se saca al paciente de la cola
+                pacientes.eliminar();
+            } while (!pacientes.estaVacia());
+
+            //cuando se atendio a todos los pacientes del centro se imprime el reporte de dicho centro
+            System.out.println(
+                    "Centro de vacunación\tVacuna\t\tAplicadas 1 dosis\tAplicadas 2 dosis\tTotal pacientes atendidos\tTotal pacientes no atendidos");
+            imprimirReporte();
+
+            centroTmp = centroTmp.getSiguienteNodo();
+        } while (centroTmp.getSiguienteNodo() != null);
     }
 
     /**
@@ -19,40 +131,34 @@ public class Simulacion {
      * y crea objetos tipo Centro con esos datos y genera la lista con esos objetos. Autor: Jeffer Martinez
      */
     public static void crearCentros() {
-        
+
         FileReader leer;
         BufferedReader br;
         String linea;
-      
 
         try {
-            leer= new FileReader("D:\\Clases\\Programacion 2\\Ejercicios clases\\ProyectoG5_IS210-main\\centros.txt");
-            br= new BufferedReader(leer);  
+            leer = new FileReader("C:\\centros.txt");
+            br = new BufferedReader(leer);
 
-            linea=br.readLine();
+            linea = br.readLine();
 
-            while (null !=linea) {
+            while (null != linea) {
                 /**
                  * proceso de creacion de objetos de tipo Centro y generar la lista
                  */
-                String totalcentros[]=linea.split(",");
-                
-                Centro nvocentro= new Centro(Integer.parseInt(totalcentros[0]),
-                                    totalcentros[1],
-                                    totalcentros[2],
-                                    Integer.parseInt(totalcentros[3]));
+                String totalcentros[] = linea.split(",");
 
-                   centros.insertarAlFinal(nvocentro);
-                }
+                Centro nvocentro = new Centro(Integer.parseInt(totalcentros[0]), totalcentros[1], totalcentros[2],
+                        Integer.parseInt(totalcentros[3]));
 
-                linea=br.readLine();
+                centros.insertarAlFinal(nvocentro);
+
+                linea = br.readLine();
             }
-
         } catch (FileNotFoundException e) {
-         
-        }
-        catch(IOException e){
-
+            System.err.println("Error al cargar el archivo: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
         }
     }
 
@@ -118,7 +224,25 @@ public class Simulacion {
     /**
      * crea una cola con una cantidad de pacientres aleatoria entre 600 y la capacidad del centro de vacunacion. Autor:
      */
-    public static Cola crearPacientes() {
-        
+    public static Cola crearPacientes(int capacidad) {
+
+    }
+
+    /**
+     * imprime el reporte de vacunacion. Autor: 
+     */
+    public static void imprimirReporte() {
+
+    }
+
+    public static boolean hayVacunas(Pila[] vacunas) {
+        boolean hay = false;
+        for (int i = 0; i < vacunas.length; i++) {
+            if (!vacunas[i].estaVacia()) {
+                hay = true;
+                break;
+            }
+        }
+        return hay;
     }
 }
