@@ -119,7 +119,7 @@ public class Simulacion {
 
             //cuando se atendio a todos los pacientes del centro se imprime el reporte de dicho centro
 
-            imprimirReporte(tmpcentro.getNombre(),pfizer,moderna,sputnik,astrazeneca,johnson);
+            imprimirReporte(tmpcentro.getNombre(), pfizer, moderna, sputnik, astrazeneca, johnson);
 
             centroTmp = centroTmp.getSiguienteNodo();
         } while (centroTmp.getSiguienteNodo() != null);
@@ -221,69 +221,107 @@ public class Simulacion {
     }
 
     /**
-     * crea una cola con una cantidad de pacientres aleatoria entre 600 y la capacidad del centro de vacunacion. Autor:
+     * crea una cola de pacientes entre 600 y la capacidad del centro de vacunacion. Autor: Joseph A. Colindres
+     * @param capacidad
+     * @return
      */
     public static Cola crearPacientes(int capacidad) {
+        String[] nombres = { "MARIA", "LAURA", "ALFREDO", "JUAN", "LARISSA", "ROBERTO", "LUCIA", "TYLER", "JOSH" };
+        String[] apellidos = { "LOPEZ", "COLINDRES", "ALMENDAREZ", "FLORES", "PINEDA", "PAZ", "AYALA" };
+        String[] direcciones = { "RES. LOS GIRASOLES", "COL. KENNEDY", "EL REPARTO", "COL SAN MIGUEL",
+                "COL 21 DE OCTUBRE" };
+        NombreVacuna[] vacunas = { NombreVacuna.ASTRAZENECA, NombreVacuna.MODERNA, NombreVacuna.PFIZER,
+                NombreVacuna.SPUTNIK };
 
+        Random rand = new Random();
+        int cantidad = 600 + rand.nextInt(capacidad + 1);
+
+        Cola pacientes = new Cola("pacientes");
+        Paciente nvoPaciente;
+        for (int i = 0; i < cantidad; i++) {
+            int dosis = 1 + rand.nextInt(2);
+            switch (dosis) {
+                case 1:
+                    //si viene por la primera dosis el valor de la vacuna a aplicar sera null
+                    nvoPaciente = new Paciente(1 + rand.nextInt(2),
+                            nombres[rand.nextInt(nombres.length)] + " " + apellidos[rand.nextInt(apellidos.length)],
+                            18 + rand.nextInt(63), direcciones[rand.nextInt(direcciones.length)], null);
+                    pacientes.insertar(nvoPaciente);
+                    break;
+
+                case 2:
+                    //si viene por la segunda dosis el valor de la vacuna a aplicar sera elegido aleatoriamente
+                    nvoPaciente = new Paciente(1 + rand.nextInt(2),
+                            nombres[rand.nextInt(nombres.length)] + " " + apellidos[rand.nextInt(apellidos.length)],
+                            18 + rand.nextInt(63), direcciones[rand.nextInt(direcciones.length)],
+                            vacunas[rand.nextInt(vacunas.length)]);
+                    pacientes.insertar(nvoPaciente);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        return pacientes;
     }
 
     /**
      * imprime el reporte de vacunacion. Autor: jorge Omar Trochez Moncada
      */
-    public static void imprimirReporte(String centro, int[] pfizer,int[] moderna,int[] sputnik,int[] astrazeneca,int[] johnson) {
+    public static void imprimirReporte(String centro, int[] pfizer, int[] moderna, int[] sputnik, int[] astrazeneca,
+            int[] johnson) {
 
-        System.out.println("  Centro de vacunación\tVacuna\t\tAplicadas 1 dosis\tAplicadas 2 dosis\tTotal pacientes atendidos\tTotal pacientes no atendidos");
-        System.out.print("  "+centro+"\t");
-        System.out.print("Pfizer\t");
+        System.out.println(
+                "  Centro de vacunación\tVacuna\t\tAplicadas 1 dosis\tAplicadas 2 dosis\tTotal pacientes atendidos\tTotal pacientes no atendidos");
+        System.out.print("  " + centro + "\t\t");
+        System.out.print("Pfizer    \t");
         System.out.print(pfizer[1]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
         System.out.print(pfizer[2]);
-        System.out.print("\t");
-        System.out.print(pfizer[1]+pfizer[2]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
+        System.out.print(pfizer[1] + pfizer[2]);
+        System.out.print("\t\t\t\t");
         System.out.println(pfizer[0]);
 
-        System.out.print("  "+centro+"\t");
-        System.out.print("Moderna\t");
+        System.out.print("  " + centro + "\t\t");
+        System.out.print("Moderna   \t");
         System.out.print(moderna[1]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
         System.out.print(moderna[2]);
-        System.out.print("\t");
-        System.out.print(moderna[1]+moderna[2]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
+        System.out.print(moderna[1] + moderna[2]);
+        System.out.print("\t\t\t\t");
         System.out.println(moderna[0]);
 
-        System.out.print("  "+centro+"\t");
+        System.out.print("  " + centro + "\t\t");
         System.out.print("Sputnik-V\t");
         System.out.print(sputnik[1]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
         System.out.print(sputnik[2]);
-        System.out.print("\t");
-        System.out.print(sputnik[1]+sputnik[2]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
+        System.out.print(sputnik[1] + sputnik[2]);
+        System.out.print("\t\t\t\t");
         System.out.println(sputnik[0]);
-        
-        System.out.print("  "+centro+"\t");
+
+        System.out.print("  " + centro + "\t\t");
         System.out.print("Astrazeneca\t");
         System.out.print(astrazeneca[1]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
         System.out.print(astrazeneca[2]);
-        System.out.print("\t");
-        System.out.print(astrazeneca[1]+astrazeneca[2]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
+        System.out.print(astrazeneca[1] + astrazeneca[2]);
+        System.out.print("\t\t\t\t");
         System.out.println(astrazeneca[0]);
 
-        System.out.print("  "+centro+"\t");
-        System.out.print("Johnson\t");
+        System.out.print("  " + centro + "\t\t");
+        System.out.print("Johnson    \t");
         System.out.print(johnson[1]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
         System.out.print(johnson[2]);
-        System.out.print("\t");
-        System.out.print(johnson[1]+johnson[2]);
-        System.out.print("\t");
+        System.out.print("\t\t\t");
+        System.out.print(johnson[1] + johnson[2]);
+        System.out.print("\t\t\t\t");
         System.out.println(johnson[0]);
-
-
 
     }
 
